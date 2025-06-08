@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+    
+    <!-- PWA Manifest Link -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Theme Color for Browser UI -->
+    <meta name="theme-color" content="#10b981">
+
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter for a clean, modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Apply the Inter font to the body */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 flex items-center justify-center min-h-screen text-white antialiased">
+
+    <!-- Main container for the content -->
+    <div class="text-center p-8 bg-gray-800 rounded-2xl shadow-xl max-w-md w-full border border-gray-700">
+        
+        <!-- The message display area. -->
+        <h1 id="message" class="text-5xl font-bold text-cyan-400 mb-8 transition-opacity duration-500">
+            Hello, World!
+        </h1>
+        
+        <!-- An interactive button -->
+        <button id="actionButton" class="bg-cyan-500 text-gray-900 font-bold py-3 px-8 rounded-xl hover:bg-cyan-400 focus:outline-none focus:ring-4 focus:ring-cyan-300 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105">
+            Acknowledge
+        </button>
+
+    </div>
+
+    <script>
+        // --- PWA Service Worker Registration ---
+        // We must check if the browser supports service workers before trying to register one.
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+              .then(registration => {
+                console.log('Service Worker registered successfully:', registration);
+              })
+              .catch(error => {
+                console.log('Service Worker registration failed:', error);
+              });
+          });
+        }
+
+        // --- Original Interactivity Logic ---
+
+        const messageElement = document.getElementById('message');
+        const actionButton = document.getElementById('actionButton');
+
+        const states = [
+            { text: "Hello, World!", button: "Acknowledge" },
+            { text: "The first step is taken.", button: "Contemplate" },
+            { text: "The universe responds.", button: "Begin Anew" }
+        ];
+        
+        let currentStateIndex = 0;
+
+        actionButton.addEventListener('click', () => {
+            currentStateIndex = (currentStateIndex + 1) % states.length;
+            messageElement.classList.add('opacity-0');
+
+            setTimeout(() => {
+                messageElement.textContent = states[currentStateIndex].text;
+                actionButton.textContent = states[currentStateIndex].button;
+                messageElement.classList.remove('opacity-0');
+            }, 500);
+        });
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,24 @@
+{
+  "name": "Hello World PWA",
+  "short_name": "Hello",
+  "description": "A simple Hello World Progressive Web App.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1f2937",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "https://placehold.co/192x192/1f2937/10b981?text=HW",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://placehold.co/512x512/1f2937/10b981?text=HW",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
